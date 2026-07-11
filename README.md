@@ -1,94 +1,63 @@
-<!--TEMPLATE EXAMPLE
-
-# TEMPLATE_GPL-3.0-or-later_Private
-**A high-fidelity media management and metadata enforcement suite for PowerShell 7.6.1 LTS.**
+# <img src="icons/robot.svg" width="32" height="32"> AI_Instructions <img src="icons/robot.svg" width="32" height="32">
+**A standardized instruction set and workflow protocol for managing AI-driven code edits.**
 
 ---
-
 
 ## Overview
-MKVMetadataAuditor+Fixer is a high-performance automation suite built for media archivists who prioritize metadata integrity and container consistency. Designed to handle the complexities of large-scale libraries, the script acts as both a vigilant auditor and a precision repair tool. It eliminates the manual labor of checking track flags, language tags, and track titles by enforcing a standardized configuration across your collection. By identifying discrepancies in audio and subtitle tracks, it ensures that your media is always configured for your preferred playback experience.
+AI_Instructions is a specialized utility designed to enforce strict behavioral protocols during AI-assisted programming sessions. It establishes a unified framework for version control, code modification, and communication, ensuring that AI agents maintain surgical precision without unauthorized refactoring or data loss.
 
-## Technical Logic
-The script employs a dual-engine approach to process files—handling Anime and Western media with specialized audit logic—and utilizes a customizable JSON-based defaults system to resolve metadata errors automatically. It features a robust gatekeeper engine that allows users to exclude specific directories via a switch-enabled (`-ep`) text-based bypass. With direct integration with `mkvpropedit`, the tool provides granular control over MKV headers, allowing for the batch correction of language codes and default/forced track flags without the need for full file remuxing.
+**Primary Environment:** Developed for compatibility with LLM-based coding assistants. It is designed for users who require rigorous control over output formatting and automated editing workflows.
 
-## Usage Examples
-```powershell
-# Standard Audit (No Changes)
-.\MKVMetadataAuditor+Fixer.ps1 -Path 'G:\Media\Anime'
+### The Core Engine
+The utility utilizes a defensive header architecture that acts as a "hard" constraint on the AI's generation logic. 
 
-# Automated Fix (JPN Audio / ENG Subs / Honorifics)
-.\MKVMetadataAuditor+Fixer.ps1 -Fix -aud jpn -sub eng -Hon -ovrd -Path 'G:\Media\Anime'
+Key operational features include:
+1. **Message Stamp Protocol:** Enforces a mandatory, time-synchronized version stamp on every code-containing response to ensure traceability.
+2. **Surgical Fix Pipeline:** Restricts the AI to minimal, targeted code edits, preventing the accidental rewriting of large blocks or unintended refactoring.
+3. **Verbatim Anchor Protocol:** Mandates a specific "Before/After/Replace" anchoring structure, enabling seamless "Find and Replace" operations in text editors like Notepad++.
+4. **Content Preservation:** Protects existing telemetry and debug data from being stripped during the editing process.
 
-# Update Video Language (Chinese) & Save to Config
-.\MKVMetadataAuditor+Fixer.ps1 -Fix -vid chi -vidf -ovrd -Path 'G:\Media\Anime'
+### Logic & Precision
+AI_Instructions operates with a "governance-first" philosophy. The protected code block is immutable, ensuring that the AI agent cannot alter its own operating parameters or modify its versioning logic, maintaining a predictable and consistent coding interface.
 
-# Direct Fix (No Backup) with Codec Priority
-.\MKVMetadataAuditor+Fixer.ps1 -Fix -FixNoBackup -sc 'ass,srt' -ovrd -Path 'G:\Media\Anime'
-
-# AVC High 10 Deep Scan Library Sweep (Fast Mode)
-.\MKVMetadataAuditor+Fixer.ps1 -h10p -fast -Path 'G:\Media\Anime'
-```
 ---
 
-## Parameter Reference
+## Feature Reference
 
-### Core Flags
-| Flag | Description |
+| Option | Description |
 | :--- | :--- |
-| `-Path <string>` | Defines the target directory for recursive scanning. |
-| `-Fix` | Enables **Write Mode**. Without this, the script runs in read-only audit mode. |
-| `-FixDebug` | Prints the exact `mkvpropedit` command strings before execution and displays subtitle scoring logic—ideal for verifying complex changes. |
-| `-FixNoBackup` | Overwrites metadata directly on source files (disables `_updated` folder). |
-| `-overrideDefaults \| -ovrd` | **Mandatory** when using automation flags to save parameters to the JSON config. |
+| **Message Stamp** | A timestamped signature (YYYY.MM.DD__HH.MM.SS) required for every code response. |
+| **Snippet Prohibition** | Prevents the AI from suggesting automated updates to the script versioning itself. |
+| **Surgical Edits** | Limits code modification to high-precision, surgical changes. |
+| **Anchor Protocol** | Requires specific context anchors (Before/After/Replace) for all code injections. |
 
-### Mode & Search Flags
-| Flag | Description |
-| :--- | :--- |
-| `-Western \| -w \| -west \| -WesternMode` | Sets defaults for Western media (English audio/subs). |
-| `-AvcHigh10Search \| -h10p` | **Search Mode:** Scans specifically for AVC High 10 (10-bit) video streams. |
-| `-AvcHigh10SearchDebug \| -h10pDebug` | Enables verbose terminal output during the High 10 search. |
-| `-fast` | Speeds up the High 10 search by skipping extended metadata checks. |
-| `-LogFullPath \| -lfp` | Forces the log to write the full file path instead of just the folder path during a fast AVC High 10 search. Requires -fast. |
-| `-disableRecurse \| -nr` | **No-Recurse:** Disables subfolder scanning; only processes the root path. |
+---
 
-### Track Priorities & Automation
-| Flag | Description |
-| :--- | :--- |
-| `-videoLanguage \| -vid <string>` | Targets the video track language (3-letter ISO code). |
-| `-videoForceUpdate \| -vidf` | **Safety Toggle:** Confirms video language changes on files that otherwise pass audit. |
-| `-audioLanguageUpdate \| -audf` | **Safety Toggle:** Confirms audio language changes on files that otherwise pass audit. |
-| `-audioLanguagePriority \| -aud <string>` | Sets primary audio language (e.g., 'jpn') and sets it as 'Default'. |
-| `-subtitleLanguagePriority \| -sub <string>` | Sets primary subtitle language. Uses weighted scoring for best dialogue track. |
-| `-subtitleCodecPriority \| -sc <string>` | Comma-separated list (e.g., 'ass,srt') to dictate subtitle format preference. |
-| `-Honorifics \| -Hon` | Injects a **+300 score bonus** to tracks labeled 'honorifics' or 'enm'. |
-| `-SubtitleFactorTrackOrder \| -SFTO \| -SubTrackOrder \| -TrackOrder` | Instructs the weighted scoring algorithm to factor in the physical track placement when determining priorities for subtitle selection. |
-| `-FansubGroupPriority \| -fg <string>` | Sets preferred fansub groups for subtitle track prioritization (e.g., `-fg 'commie'`). Pass an empty string (`""`) to clear preferences via CLI. |
-| `-SubtitlesHearingImpaired \| -sdh \| -hi \| -hicc \| -cc` | Prioritizes 'Hearing Impaired' or 'SDH' subtitle tracks (Western Mode). |
-| `-OverrideWesternDefaults \| -ovrdw` | Allows the script to save custom Western mode parameters to the JSON configuration. |
+## Assets & Licensing
+This software is released under the **MIT License**.
 
-### Advanced & Log Management Flags
-| Flag | Description |
-| :--- | :--- |
-| `-VerifyUpdates \| -V \| -Verify` | Chains an automated second-pass verification audit immediately after fixing to confirm metadata integrity. Requires `-Fix`. |
-| `-help \| -manual` | Displays the internal help manual. |
-| `-DelLog` | Clears all historically accumulated files within the logs directory before starting operations. |
-| `-ClearDefaults \| -clr` | Deletes the saved Anime configuration JSON template to reset rules back to factory conditions. |
-| `-ClearWesternDefaults \| -clrw` | Deletes the custom Western configuration file to purge specialized rules. |
-| `-ClearAllDefaults \| -cla` | Total system purge of both Anime and Western configuration JSON structures. |
-| `-excludePaths \| -ep` | Enables the directory suppression exclusion engine (`MKVMetadataAuditor+Fixer__Excluded-Paths.txt`). |
-| `-Version \| -Ver` | Displays the script's current version number and exits immediately. |
+### Icon/Asset Credits
+* **File:** `robot.svg`
+    * **Asset:** Robot SVG Vector
+    * **Author:** Twitter
+    * **Source:** <a href="https://www.svgrepo.com/svg/407351/robot" target="_blank">https://www.svgrepo.com/svg/407351/robot</a>
+    * **License:** MIT License
+    * **Modifications:** Removed metadata.
 
 ---
 
 ## Dependencies
-* **MKVToolNix:** Required for header probing (`mkvmerge`) and metadata editing (`mkvpropedit`).
-* **MediaInfo:** Required for video profile verification during AVC High 10 searches.
-
-TEMPLATE EXAMPLE-->
+* **OS:** Cross-platform (text-based implementation).
+* **Language/Framework:** Compatible with any LLM supporting system instruction overrides.
+* **Requirements:** N/A.
 
 ## Support & Maintenance
-**This repository is provided "as-is" for archival purposes.** I am not actively looking for feedback, feature requests, or bug reports. The issue tracker is disabled, and I will not be responding to inquiries regarding setup or usage.
+**This repository is provided "as-is" for archival purposes.** The author is not actively looking for feedback, feature requests, or bug reports. The issue tracker is disabled.
 
 ## Disclaimer
-*This script modifies MKV file headers and metadata. While designed for safety, always ensure you have backups of your media before running batch operations. The author is not responsible for any accidental data loss or corruption resulting from the use of this tool.*
+*AI_Instructions is a tool for behavioral management of AI coding agents. The author is not responsible for any legal implications arising from the use of AI-generated code or the software's execution.*
+
+---
+> **Document Control**<br>
+> *This document is up-to-date with the following version of AI_Instructions.*<br>
+> *2026.07.11__10.10.56*
