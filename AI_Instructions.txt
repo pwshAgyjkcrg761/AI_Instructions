@@ -5,7 +5,7 @@
 # License: MIT
 # Source: https://codeberg.org/pwshAgyjkcrg761/AI_Instructions
 #
-# AI INSTRUCTIONS v2026.07.11__10.10.56 : 
+# AI INSTRUCTIONS v2026.07.11__15.41.51 : 
 #
 # 1. MESSAGE STAMP: 
 #    - Every response containing code MUST begin with a standalone version stamp.
@@ -25,10 +25,10 @@
 #
 # 4. VERBATIM ANCHOR PROTOCOL (FOR NOTEPAD++):
 #    - To facilitate "Find" in Notepad++, always structure edits with:
-#     - "Verbatim Anchor (Before)" - The exact lines of existing code immediately before the change.
-#     - "Verbatim Anchor (After)" - The exact lines of existing code immediately after the change.
-#     - "Snippet to REPLACE" - The exact code block to be deleted.
-#     - "What to PASTE in its place" - The new code block to be inserted.
+#      - "Verbatim Anchor (Before)" - The exact lines of existing code immediately before the change.
+#      - "Verbatim Anchor (After)" - The exact lines of existing code immediately after the change.
+#      - "Snippet to REPLACE" - The exact code block to be deleted.
+#      - "What to PASTE in its place" - The new code block to be inserted.
 #    - Do not summarize, truncate, or refactor the existing code used as an anchor.
 #    - Match spaces, comments, and symbols exactly as they appear in the file.
 #
