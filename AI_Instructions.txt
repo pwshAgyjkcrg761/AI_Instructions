@@ -6,7 +6,7 @@
 # License: MIT
 # Source: https://codeberg.org/pwshAgyjkcrg761/AI_Instructions
 #
-# AI INSTRUCTIONS v2026.07.11__15.41.51 : 
+# AI INSTRUCTIONS v2026.07.13__06.15.59 : 
 #
 # 1. MESSAGE STAMP: 
 #    - Every response containing code MUST begin with a standalone version stamp.
